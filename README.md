@@ -2,7 +2,7 @@
 
 ## What is the Advent of Code?
 The Advent of Code are competitve programming tasks that are every year published in the month of December by Eric Wastl (topaz).  
-For 25 days every day 2 problems appear: One immediately, the other is being unlocked after solving the first one correctly. Thus all in all 50 problems are available. For every solved problem you get a gold star.  
+For 25 days every day 2 problems appear: One immediately, the other is being unlocked after solving the first one correctly. Thus all in all 50 problems are available. For every solved problem you get a star.  
 You habe the chance to appear on the leaderboard if you have enough points: You get points if you are under the first 100 to solve the problem, the first gets 100, the second 99 and so on.  
 A problem is unlocked at UTC-5 midnight.  
 
