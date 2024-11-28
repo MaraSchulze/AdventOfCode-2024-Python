@@ -6,6 +6,10 @@ For 25 days every day 2 problems appear: One immediately, the other is being unl
 You habe the chance to appear on the leaderboard if you have enough points: You get points if you are under the first 100 to solve the problem, the first gets 100, the second 99 and so on.  
 A problem is unlocked at UTC-5 midnight.  
 
+## More
+Every user has his/her own imput!  
+You can see your own stats at https://adventofcode.com/2023/leaderboard/self.  
+
 ## 2024 Edition
 The problem description of the 2024 problems:  
 https://adventofcode.com/2024
