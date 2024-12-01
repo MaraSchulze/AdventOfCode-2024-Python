@@ -7,7 +7,7 @@ You habe the chance to appear on the leaderboard if you have enough points: You 
 A problem is unlocked at UTC-5 midnight.  
 
 ## More
-Every user has his/her own imput!  
+Every user has his/her own input!  
 You can see your own stats at https://adventofcode.com/2023/leaderboard/self.  
 
 ## 2024 Edition
