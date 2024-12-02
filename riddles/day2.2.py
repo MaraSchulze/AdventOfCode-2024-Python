@@ -1,7 +1,7 @@
 from get_input import get_input, get_test_input
 
 
-def is_raising(report):
+def is_increasing(report):
 	for i in range(1, len(report)):
 		if report[i] <= report[i - 1] or report[i] - report[i - 1] > 3:
 			return False
@@ -9,13 +9,13 @@ def is_raising(report):
 
 
 def is_save(report):
-	if is_raising(report) or is_raising(list(reversed(report))):
+	if is_increasing(report) or is_increasing(list(reversed(report))):
 		return True
 
 	# leave out one level
 	for i in range(len(report)):
 		second_chance = report[:i] + report[i + 1:]
-		if is_raising(second_chance) or is_raising(list(reversed(second_chance))):
+		if is_increasing(second_chance) or is_increasing(list(reversed(second_chance))):
 			return True
 	return False
 

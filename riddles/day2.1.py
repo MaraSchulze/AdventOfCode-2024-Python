@@ -1,7 +1,7 @@
 from get_input import get_input, get_test_input
 
 
-def is_raising(report):
+def is_increasing(report):
 	for i in range(1, len(report)):
 		if report[i] <= report[i - 1] or report[i] - report[i - 1] > 3:
 			return False
@@ -9,7 +9,7 @@ def is_raising(report):
 
 
 def is_save(report):
-	return is_raising(report) or is_raising(list(reversed(report)))
+	return is_increasing(report) or is_increasing(list(reversed(report)))
 
 
 # get input
