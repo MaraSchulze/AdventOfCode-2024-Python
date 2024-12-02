@@ -26,7 +26,7 @@ inp = get_input(__file__)
 # massage input
 reports = [[int(level) for level in line.split()] for line in inp]
 
-# sum up saveties for reports
+# sum up safeties for reports
 result = sum([1 if is_save(report) else 0 for report in reports])
 
 # print result
