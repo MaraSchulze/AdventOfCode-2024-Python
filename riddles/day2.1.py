@@ -8,15 +8,8 @@ def is_raising(report):
 	return True
 
 
-def is_falling(report):
-	for i in range(1, len(report)):
-		if report[i] >= report[i - 1] or report[i - 1] - report[i] > 3:
-			return False
-	return True
-
-
 def is_save(report):
-	return is_raising(report) or is_falling(report)
+	return is_raising(report) or is_raising(list(reversed(report)))
 
 
 # get input

@@ -8,21 +8,14 @@ def is_raising(report):
 	return True
 
 
-def is_falling(report):
-	for i in range(1, len(report)):
-		if report[i] >= report[i - 1] or report[i - 1] - report[i] > 3:
-			return False
-	return True
-
-
 def is_save(report):
-	if is_raising(report) or is_falling(report):
+	if is_raising(report) or is_raising(list(reversed(report))):
 		return True
 
 	# leave out one level
 	for i in range(len(report)):
 		second_chance = report[:i] + report[i + 1:]
-		if is_raising(second_chance) or is_falling(second_chance):
+		if is_raising(second_chance) or is_raising(list(reversed(second_chance))):
 			return True
 	return False
 
