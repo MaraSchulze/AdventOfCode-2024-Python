@@ -12,7 +12,7 @@ l2 = [int(line.split()[1]) for line in inp]
 d = Counter(l2)
 
 # sum up frequencies
-result = sum([l1[i] * d[l1[i]] for i in range(len(inp))])
+result = sum([num * d[num] for num in l1])
 
 # print result
 print(result)
