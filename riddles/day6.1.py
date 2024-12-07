@@ -34,7 +34,6 @@ def go():
 	i, j = get_start()
 	direction = N
 	while inbounds(i, j):
-		print(i, j)
 		mymap[i][j] = "X"
 		a, b = step(i, j, direction)
 		if inbounds(a, b) and mymap[a][b] == "#":
