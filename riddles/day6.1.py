@@ -33,17 +33,13 @@ def inbounds(i, j):
 def go():
 	i, j = get_start()
 	direction = N
-	while True:
+	while inbounds(i, j):
+		print(i, j)
 		mymap[i][j] = "X"
-		i, j = step(i, j, direction)
-		if not inbounds(i, j):
-			break
 		a, b = step(i, j, direction)
-		if not inbounds(a, b):
-			mymap[i][j] = "X"
-			break
-		if mymap[a][b] == "#":
+		if inbounds(a, b) and mymap[a][b] == "#":
 			direction = right(direction)
+		i, j = step(i, j, direction)
 
 
 # global variables
