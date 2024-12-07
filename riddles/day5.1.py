@@ -43,5 +43,5 @@ updates = [line.split(",") for line in updates]
 result_list = [update for update in updates if is_correct(update)]
 result = sum([int(update[len(update) // 2]) for update in result_list])
 
-# print result
+# print resultk
 print(result)
