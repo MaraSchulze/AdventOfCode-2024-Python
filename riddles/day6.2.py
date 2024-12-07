@@ -8,9 +8,11 @@ def get_start():
 				return (i, j)
 	return None
 
+
 def step(i, j, direction):
 	a, b = direction
 	return (i + a, j + b)
+
 
 def right(direction):
 	if direction == N:
@@ -21,77 +23,68 @@ def right(direction):
 		new_dir = W
 	else:
 		new_dir = N 
-	a, b = new_dir
 	return new_dir
 
-def inbounds(x, y):
-	return 0 <= x < len(mymap) and 0 <= y < len(mymap[0])
 
+def inbounds(i, j):
+	return 0 <= i < len(mymap) and 0 <= j < len(mymap[0])
+
+
+def go():
+	result = 0
+	i, j = get_start()
+	direction = N
+	future = set()
+	while inbounds(i, j):
+		state = (i, j, direction)
+		if state in future:
+			result += 1
+			break
+		future.add(state)
+		a, b = step(i, j, direction)
+		if inbounds(a, b) and mymap[a][b] == "#":
+			direction = right(direction)	
+		c, d = step(i, j, direction)
+		if inbounds(c, d) and mymap[c][d] == "#":
+			direction = right(direction)	
+		i, j = step(i, j, direction)
+	return result
+
+def get_positions():
+	result = set()
+	i, j = get_start()
+	direction = N
+	while inbounds(i, j):
+		a, b = step(i, j, direction)
+		if inbounds(a, b) and mymap[a][b] == "#":
+			direction = right(direction)	
+		c, d = step(i, j, direction)
+		if inbounds(c, d) and mymap[c][d] == "#":
+			direction = right(direction)	
+		result.add((i, j))
+		i, j = step(i, j, direction)
+	return result
+
+
+# global variables
 N, E, S, W = (-1, 0), (0, 1), (1, 0), (0, -1)
-# exract input
-inp = get_test_input(__file__)
+test = 1
+
+# extract input
+inp = get_input(__file__)
 mymap = [list(line) for line in inp]
 
-c, d = get_start()
-i, j = c, d
-direction = N
-test = 0
-while 0 <= i < len(mymap) and 0 <= j < len(mymap[0]):
-	i, j = step(i, j, direction)
-	if not (0 <= i < len(mymap) and 0 <= j < len(mymap[0])):
-		break
-	mymap[i][j] = "X"
-	test += 1
-	a, b = step(i, j, direction)
-	if not (0 <= a < len(mymap) and 0 <= b < len(mymap[0])):
-		break
-	if mymap[a][b] == "#":
-		direction = right(direction)
-print(test)
-# for row in mymap:
-# 	print(row)
-# print()
+# get obstacle positions
+positions = get_positions()
+positions.remove(get_start())
 
 result = 0
-for x in range(len(mymap)):
-	for y in range(len(mymap[0])):
-		if mymap[x][y] != "^" and mymap[x][y] != "#":
-			if (inbounds(x - 1, y) and mymap[x - 1][y] == "X" or inbounds(x + 1, y) and mymap[x + 1][y] == "X" or inbounds(x, y - 1) and mymap[x][y - 1] == "X" or inbounds(x, y + 1) and mymap[x][y + 1] == "X"):
-				save = mymap[x][y]
-				mymap[x][y] = "o"
-			else:
-				continue
-		else:
-			continue
+for position in positions:
+	i, j = position
+	if mymap[i][j] == ".":
+		mymap[i][j] = "#"
+		result += go()
+		mymap[i][j] = "."
 
-		found = False
-		cycle = []
-		i, j = c, d
-		direction = N
-		while 0 <= i < len(mymap) and 0 <= j < len(mymap[0]):
-			i, j = step(i, j, direction)
-			if not (0 <= i < len(mymap) and 0 <= j < len(mymap[0])):
-				break
-			
-			if (i, j, direction) in cycle:
-				found = True
-				break
-			cycle.append((i, j, direction))
-
-			a, b = step(i, j, direction)
-			if not (0 <= a < len(mymap) and 0 <= b < len(mymap[0])):
-				break
-			if mymap[a][b] == "#" or mymap[a][b] == "o":
-				direction = right(direction)
-		
-		# if found == True:
-		# 	print(found, x, y)
-		# 	for row in mymap:
-		# 		print(row)
-		if found == True:
-			result += 1
-		mymap[x][y] = save
-		print(x, y, found)
-
-
+# print result
 print(result)
