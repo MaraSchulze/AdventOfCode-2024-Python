@@ -31,18 +31,26 @@ def inbounds(i, j):
 
 
 def go():
+	global test
+
 	i, j = get_start()
 	direction = N
 	while inbounds(i, j):
+		print(test, i, j)
+		test += 1
 		mymap[i][j] = "X"
 		a, b = step(i, j, direction)
 		if inbounds(a, b) and mymap[a][b] == "#":
-			direction = right(direction)
+			direction = right(direction)	
+		c, d = step(i, j, direction)
+		if inbounds(c, d) and mymap[c][d] == "#":
+			direction = right(direction)	
 		i, j = step(i, j, direction)
 
 
 # global variables
 N, E, S, W = (-1, 0), (0, 1), (1, 0), (0, -1)
+test = 1
 
 # extract input
 inp = get_input(__file__)
