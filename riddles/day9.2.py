@@ -1,5 +1,6 @@
 from get_input import get_input, get_test_input
 from collections import defaultdict
+from queue import PriorityQueue
 
 
 def create_disk(diskmap):
@@ -22,32 +23,32 @@ def get_length_dict(diskmap):
 
 
 def get_space_dict(diskmap):
-	space = defaultdict(list)
+	space = defaultdict(PriorityQueue)
 	position = 0
 	for i in range(len(diskmap)):
 		if i % 2 == 1:
 			current = int(diskmap[i])
-			space[current].append(position) 
+			space[current].put(position) 
 		position += int(diskmap[i])
 	return space
 
 
 def find_space(space, length):
 	# find all spaces that fit
-	lengths = []
+	lengths = PriorityQueue()
 	for l in range(length, 10):
-		if l in space and len(space[l]) != 0:
-			lengths.append((space[l][0], l))
-	if len(lengths) == 0:
+		if l in space and not space[l].empty():
+			peek = space[l].get()
+			lengths.put((peek, l))
+			space[l].put(peek)
+	if lengths.empty():
 		return None
-	
+
 	# update space
-	lengths.sort()
-	index, space_length = lengths[0]
+	index, space_length = lengths.get()
+	space[space_length].get()
 	new_length = space_length - length
-	space[space_length].pop(0)
-	space[new_length].append(index + length)
-	space[new_length].sort()
+	space[new_length].put(index + length)
 
 	return index
 
@@ -68,10 +69,10 @@ space = get_space_dict(diskmap)
 
 # iterate over file ids
 for i in range(len(d) - 1, -1, -1):
+	print(i)
 	length = d[i]
 
 	# find a space that is at least length long and is the most left
-	# lengths contains the tuples (position, free space length at that position)
 	index1 = find_space(space, length)
 	if index1 == None:
 		continue
