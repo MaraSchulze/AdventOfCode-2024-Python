@@ -57,8 +57,8 @@ def apply_cheat(i, j, step, field):
 	for a,b in neighbours1:
 		neighbours2.update(get_neighbours(a, b))
 	result = [(a, b, get_field(a, b, field)) for a, b in neighbours2]
-	time = [(a, b, time - step - 2) for a, b, time in result if time > step + 2]
-	return time
+	cheats = [(a, b, time - step - 2) for a, b, time in result if time > step + 2]
+	return cheats
 
 
 # set recursion depth higher
@@ -74,14 +74,14 @@ end_i, end_j = get_char("E", field)
 number(start_i, start_j, 0, field)
 
 # try cheats
-all_cheats = set()
+all_cheats = []
 race_time = field[end_i][end_j]
 
 i, j = start_i, start_j
 for step in range(race_time):
 	i, j = make_next_step(i, j, step, field)
 	cheats = apply_cheat(i, j, step, field)
-	all_cheats.update(cheats)
+	all_cheats.extend(cheats)
 
 times = [time for _, _, time in all_cheats]
 times_counter = Counter(times)
